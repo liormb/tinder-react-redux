@@ -1,7 +1,14 @@
+/**
+ * User: liormb
+ * Date: 1/23/16
+ * Time: 7:00 PM
+ */
+
+'use strict';
+
 import { combineReducers } from 'redux';
+import books from './booksReducer';
 
-const rootReducer = combineReducers({
-  state: (state = {}) => state
+export default combineReducers({
+    books
 });
-
-export default rootReducer;
