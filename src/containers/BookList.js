@@ -7,14 +7,27 @@
 'use strict';
 
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import selectBookAction from '../actions/selectBookAction';
 
 class BookList extends Component {
+
+    onBookSelected(book) {
+        const { selectBookAction } = this.props;
+        selectBookAction(book);
+    }
 
     renderBooks() {
         const { books } = this.props;
         return books.map((book, key) =>
-            <li className="list-group-item" key={`book-${key}`}>{book.title}</li>
+            <li
+                key={`book-${key}`}
+                className="list-group-item"
+                onClick={this.onBookSelected.bind(this, book)}
+            >
+                {book.title}
+            </li>
         );
     }
 
@@ -31,8 +44,6 @@ BookList.propTypes = {
     books: React.PropTypes.array.isRequired
 };
 
-
-// redux container
 const mapStateToProps = (state) => {
     const { books } = state;
     return {
@@ -40,4 +51,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(BookList);
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ selectBookAction }, dispatch);
+};
+
+// promote a component to a container
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);

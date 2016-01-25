@@ -7,8 +7,12 @@
 'use strict';
 
 import { combineReducers } from 'redux';
+
+// reducers
 import books from './booksReducer';
+import activeBook from './activeBookReducer';
 
 export default combineReducers({
-    books
+    books,
+    activeBook
 });
